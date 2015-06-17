@@ -1,0 +1,18 @@
+# this file holds the definitions that are used in various bzr tests
+
+"$TESTDIR/hghave" bzr || exit 80
+
+TERM=dumb; export TERM
+echo '[extensions]' >> $HGRCPATH
+echo 'convert = ' >> $HGRCPATH
+
+glog()
+{
+    hg log -G --template '{rev}@{branch} "{desc|firstline}" files: {files}\n' "$@"
+}
+
+manifest()
+{
+    echo "% manifest of $2"
+    hg -R $1 manifest -v -r $2
+}
